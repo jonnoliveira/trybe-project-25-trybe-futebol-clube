@@ -34,7 +34,7 @@ module.exports = {
         allowNull: false,
         },
       in_progress: {
-        type: Sequelize.BOOL,
+        type: Sequelize.BOOLEAN,
         allowNull: false,
       },
     });
