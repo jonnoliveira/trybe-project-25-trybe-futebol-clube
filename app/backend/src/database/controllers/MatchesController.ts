@@ -18,4 +18,13 @@ export default class MatchesController implements MatchesControllerInterface {
     const data = await this._macthesService.getAll();
     return res.status(HTTP_STATUS_OK).json(data);
   }
+
+  public async finishById(req: Request, res: Response) {
+    const { id } = req.params;
+    const data = await this._macthesService.finishById(Number(id));
+
+    if (data > 0) {
+      return res.status(HTTP_STATUS_OK).json({ message: 'Finished' });
+    }
+  }
 }

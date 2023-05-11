@@ -7,6 +7,7 @@ import { app } from '../app';
 
 import { team, teamsList } from './mocks/teams.mock';
 import TeamModel from '../database/models/TeamModel';
+import { HTTP_ERROR, HTTP_STATUS_OK, NOT_TEAM } from '../database/utils/statusHTTP';
 
 chai.use(chaiHttp);
 
@@ -20,7 +21,7 @@ describe('Teams', () => {
       // act
       const { status, body } = await chai.request(app).get('/teams')
       // assert
-      expect(status).to.be.equal(200);
+      expect(status).to.be.equal(HTTP_STATUS_OK);
       expect(body).to.be.deep.equal(teamsList)
     });
   });
@@ -31,7 +32,7 @@ describe('Teams', () => {
       // act
       const { status, body } = await chai.request(app).get('/teams/3')
       // assert
-      expect(status).to.be.equal(200);
+      expect(status).to.be.equal(HTTP_STATUS_OK);
       expect(body).to.be.deep.equal(team)
     });
 
@@ -41,8 +42,8 @@ describe('Teams', () => {
       // act
       const { status, body } = await chai.request(app).get('/teams/3333')
       // assert
-      expect(status).to.be.equal(404);
-      expect(body).to.be.deep.equal({ message: 'Team not found' })
+      expect(status).to.be.equal(HTTP_ERROR);
+      expect(body).to.be.deep.equal({ message: NOT_TEAM })
     });
   });
   afterEach(() => {

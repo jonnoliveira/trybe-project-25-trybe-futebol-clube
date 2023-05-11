@@ -28,4 +28,13 @@ export default class MatchesService implements MatchesServiceInterface {
     });
     return message;
   }
+
+  public async finishById(id: number): Promise<number> {
+    const [message] = await this.model.update(
+      { inProgress: true },
+      { where: { id } },
+    );
+
+    return message;
+  }
 }
