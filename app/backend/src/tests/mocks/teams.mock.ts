@@ -15,4 +15,9 @@ const teamsList: TeamInterface[] = [
   },
 ];
 
-export { teamsList };
+const team: TeamInterface = {
+  "id": 3,
+  "teamName": "Botafogo"
+}
+
+export { teamsList, team };
