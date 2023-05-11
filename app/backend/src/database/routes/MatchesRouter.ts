@@ -7,11 +7,24 @@ const matchesRouter = Router();
 const macthesService = new MatchesService();
 const macthesController = new MatchesController(macthesService);
 
-matchesRouter.get('/', (req: Request, res: Response) => macthesController.getAll(req, res));
 matchesRouter.patch(
   '/:id/finish',
   ValidateToken.isValid,
   (req: Request, res: Response) => macthesController.finishById(req, res),
+);
+
+matchesRouter.patch(
+  '/:id',
+  ValidateToken.isValid,
+  (req: Request, res: Response) => macthesController.updateById(req, res),
+);
+
+matchesRouter.get('/', (req: Request, res: Response) => macthesController.getAll(req, res));
+
+matchesRouter.post(
+  '/',
+  ValidateToken.isValid,
+  (req: Request, res: Response) => macthesController.create(req, res),
 );
 
 export default matchesRouter;

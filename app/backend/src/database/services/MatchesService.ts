@@ -3,6 +3,7 @@ import MatchesServiceInterface from '../interfaces/MatchesServiceInterface';
 import MatchInterface from '../interfaces/MatchesInterface';
 import MatchModel from '../models/MatchModel';
 import TeamModel from '../models/TeamModel';
+import BodyCreateInterface from '../interfaces/BodyCreateInterface';
 
 export default class MatchesService implements MatchesServiceInterface {
   protected model: ModelStatic<MatchModel> = MatchModel;
@@ -31,10 +32,35 @@ export default class MatchesService implements MatchesServiceInterface {
 
   public async finishById(id: number): Promise<number> {
     const [message] = await this.model.update(
-      { inProgress: true },
+      { inProgress: false },
       { where: { id } },
     );
 
     return message;
+  }
+
+  public async updateById(id: number, body: BodyCreateInterface)
+    : Promise<number> {
+    const [message] = await this.model.update(
+      { homeTeamGoals: body.homeTeamGoals, awayTeamGoals: body.awayTeamGoals },
+      { where: { id } },
+    );
+
+    return message;
+  }
+
+  public async create(body: BodyCreateInterface)
+    : Promise<MatchModel> {
+    const data = await this.model.create(
+      {
+        homeTeamId: body.homeTeamId,
+        homeTeamGoals: body.homeTeamGoals,
+        awayTeamId: body.awayTeamId,
+        awayTeamGoals: body.awayTeamGoals,
+        inProgress: true,
+      },
+    );
+
+    return data;
   }
 }

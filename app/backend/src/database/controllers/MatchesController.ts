@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import MatchesControllerInterface from '../interfaces/MatchesControllerInterface';
 import MatchesServiceInterface from '../interfaces/MatchesServiceInterface';
-import { HTTP_STATUS_OK } from '../utils/statusHTTP';
+import { HTTP_STATUS_OK, SERVER_ERROR, HTTP_SERVER_ERROR, HTTP_CREATED } from '../utils/statusHTTP';
 
 export default class MatchesController implements MatchesControllerInterface {
   constructor(private _macthesService: MatchesServiceInterface) {}
@@ -23,8 +23,31 @@ export default class MatchesController implements MatchesControllerInterface {
     const { id } = req.params;
     const data = await this._macthesService.finishById(Number(id));
 
-    if (data > 0) {
-      return res.status(HTTP_STATUS_OK).json({ message: 'Finished' });
+    if (data <= 0) {
+      return res.status(HTTP_SERVER_ERROR).json(SERVER_ERROR);
     }
+
+    return res.status(HTTP_STATUS_OK).json({ message: 'Finished' });
+  }
+
+  public async updateById(req: Request, res: Response) {
+    const { id } = req.params;
+    const { body } = req;
+
+    const data = await this._macthesService.updateById(Number(id), body);
+
+    if (data <= 0) {
+      return res.status(HTTP_SERVER_ERROR).json(SERVER_ERROR);
+    }
+
+    return res.status(HTTP_STATUS_OK).json({ message: 'Match Updated' });
+  }
+
+  public async create(req: Request, res: Response) {
+    const { body } = req;
+
+    const data = await this._macthesService.create(body);
+
+    return res.status(HTTP_CREATED).json(data);
   }
 }

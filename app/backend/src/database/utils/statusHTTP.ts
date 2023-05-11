@@ -10,3 +10,4 @@ export const HTTP_FORMAT_INVALID = 401;
 export const HTTP_ERROR = 404;
 export const HTTP_SERVER_ERROR = 500;
 export const HTTP_STATUS_OK = 200;
+export const HTTP_CREATED = 201;
