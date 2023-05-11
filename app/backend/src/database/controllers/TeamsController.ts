@@ -13,10 +13,10 @@ export default class TeamsController implements TeamsControllerInterface {
 
   public async getById(req: Request, res: Response) {
     const { id } = req.params;
-    const data = await this._teamsService.getById(Number(id));
+    const message = await this._teamsService.getById(Number(id));
 
-    if (!data) return res.status(404).json({ message: 'Team not found' });
+    if (!message) return res.status(404).json({ message: 'Team not found' });
 
-    return res.status(200).json(data);
+    return res.status(200).json(message);
   }
 }

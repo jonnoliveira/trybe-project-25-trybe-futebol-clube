@@ -7,11 +7,13 @@ export default class TeamsService implements TeamsServiceInterface {
   protected model: ModelStatic<TeamModel> = TeamModel;
 
   public async getAll(): Promise<TeamInterface[]> {
-    return this.model.findAll();
+    const message = await this.model.findAll();
+
+    return message;
   }
 
   public async getById(teamId: number): Promise<TeamInterface | null> {
-    const data = this.model.findOne({ where: { id: teamId } });
-    return data;
+    const message = await this.model.findOne({ where: { id: teamId } });
+    return message;
   }
 }
