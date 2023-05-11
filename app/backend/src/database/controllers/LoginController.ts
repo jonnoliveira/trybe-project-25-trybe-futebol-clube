@@ -13,4 +13,10 @@ export default class LoginController {
 
     return res.status(HTTP_STATUS_OK).json({ token: message });
   }
+
+  public static async getRole(req: Request, res: Response) {
+    const { data } = req.body;
+
+    return res.status(HTTP_STATUS_OK).json({ role: data.payload.role });
+  }
 }

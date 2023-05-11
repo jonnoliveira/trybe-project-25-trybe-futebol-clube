@@ -15,7 +15,9 @@ export default class LoginService implements LoginServiceInterface {
       return { status: HTTP_FORMAT_INVALID, message: FORMAT_INVALID };
     }
 
-    const token = validateJWT.generateToken({ mail, password });
+    const { role } = data.dataValues;
+
+    const token = validateJWT.generateToken({ mail, password, role });
 
     return { status: null, message: token };
   }
