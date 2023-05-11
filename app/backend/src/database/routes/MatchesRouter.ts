@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express';
 import MatchesController from '../controllers/MatchesController';
 import MatchesService from '../services/MatchesService';
 import ValidateToken from '../middlewares/ValidateToken';
+import ValidateMatch from '../middlewares/ValidateMatch';
 
 const matchesRouter = Router();
 const macthesService = new MatchesService();
@@ -24,6 +25,7 @@ matchesRouter.get('/', (req: Request, res: Response) => macthesController.getAll
 matchesRouter.post(
   '/',
   ValidateToken.isValid,
+  ValidateMatch.isValid,
   (req: Request, res: Response) => macthesController.create(req, res),
 );
 
