@@ -9,7 +9,7 @@ export default class TeamsController implements TeamsControllerInterface {
   public async getAll(_req: Request, res: Response) {
     const data = await this._teamsService.getAll();
 
-    return res.status(200).json(data);
+    return res.status(HTTP_STATUS_OK).json(data);
   }
 
   public async getById(req: Request, res: Response) {

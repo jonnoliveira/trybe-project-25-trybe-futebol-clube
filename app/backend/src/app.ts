@@ -1,6 +1,7 @@
 import * as express from 'express';
-import teamsRouter from './database/routes/TeamsRouter';
 import loginRouter from './database/routes/LoginRouter';
+import teamsRouter from './database/routes/TeamsRouter';
+import matchesRouter from './database/routes/MatchesRouter';
 
 class App {
   public app: express.Express;
@@ -15,6 +16,7 @@ class App {
 
     this.app.use('/teams', teamsRouter);
     this.app.use('/login', loginRouter);
+    this.app.use('/matches', matchesRouter);
   }
 
   private config(): void {
