@@ -42,7 +42,7 @@ export default class LeaderBoardService implements LeaderBoardServiceInterface {
     return matchResult;
   }
 
-  private static homeTeamInfo(team: TeamInterface, matches: MatchInterface[]) {
+  private static homeTeamInfo(team: TeamInterface, matches: MatchInterface[]): TeamProperties {
     const teamInfo = new TeamProperties(team.teamName);
 
     const homeMatches = matches.filter((match) => match.homeTeamId === team.id);
@@ -67,8 +67,57 @@ export default class LeaderBoardService implements LeaderBoardServiceInterface {
     return teamInfo;
   }
 
-  public static sortClassification(data: LeaderBoardInterface[]) {
-    const sorted = data.sort((a, b) => {
+  private static awayTeamInfo(team: TeamInterface, matches: MatchInterface[]): TeamProperties {
+    const teamInfo = new TeamProperties(team.teamName);
+
+    const awayMatches = matches.filter((match) => match.awayTeamId === team.id);
+    teamInfo.totalGames = awayMatches.length;
+
+    awayMatches.forEach(({ awayTeamGoals, homeTeamGoals }) => {
+      const { totalPoints, totalVictories, totalDraws, totalLosses } = LeaderBoardService
+        .getMatchResults(awayTeamGoals, homeTeamGoals);
+
+      teamInfo.totalPoints += totalPoints;
+      teamInfo.totalVictories += totalVictories;
+      teamInfo.totalDraws += totalDraws;
+      teamInfo.totalLosses += totalLosses;
+
+      teamInfo.goalsFavor += awayTeamGoals;
+      teamInfo.goalsOwn += homeTeamGoals;
+
+      const { goalsFavor, goalsOwn, totalGames, totalPoints: TP } = teamInfo;
+      teamInfo.goalsBalance = goalsFavor - goalsOwn;
+      teamInfo.efficiency = +(((TP / (totalGames * 3))) * 100).toFixed(2);
+    });
+    return teamInfo;
+  }
+
+  private static allClass(homeTeam: LeaderBoardInterface[], awayTeam: LeaderBoardInterface[]) {
+    const classification = homeTeam.map((home) => {
+      const away = awayTeam.filter((team) => home.name === team.name);
+      const teamInfo = new TeamProperties(home.name);
+      away.forEach((board) => {
+        teamInfo.totalGames = board.totalGames + home.totalGames;
+
+        teamInfo.totalPoints = board.totalPoints + home.totalPoints;
+        teamInfo.totalVictories = board.totalVictories + home.totalVictories;
+        teamInfo.totalLosses = board.totalLosses + home.totalLosses;
+        teamInfo.totalDraws = board.totalDraws + home.totalDraws;
+
+        teamInfo.goalsFavor = board.goalsFavor + home.goalsFavor;
+        teamInfo.goalsOwn = board.goalsOwn + home.goalsOwn;
+        const { goalsFavor, goalsOwn, totalGames, totalPoints: TP } = teamInfo;
+
+        teamInfo.goalsBalance = goalsFavor - goalsOwn;
+        teamInfo.efficiency = +(((TP / (totalGames * 3)) * 100).toFixed(2));
+      });
+      return teamInfo;
+    });
+    return classification;
+  }
+
+  public static sortClassification(homeTeam: LeaderBoardInterface[]) {
+    const sorted = homeTeam.sort((a, b) => {
       if (a.totalPoints !== b.totalPoints) {
         return b.totalPoints - a.totalPoints;
       }
@@ -89,6 +138,28 @@ export default class LeaderBoardService implements LeaderBoardServiceInterface {
 
     const homeTeam = allTeams.map((team) => LeaderBoardService.homeTeamInfo(team, allMatches));
     const sorted = LeaderBoardService.sortClassification(homeTeam);
+    return sorted;
+  }
+
+  public async getAway() {
+    const allTeams = await this.getAllTeams();
+    const allMatches = await this.getAllMatches();
+
+    const awayTeam = allTeams.map((team) => LeaderBoardService.awayTeamInfo(team, allMatches));
+    const sorted = LeaderBoardService.sortClassification(awayTeam);
+    return sorted;
+  }
+
+  public async getAllClass() {
+    const allTeams = await this.getAllTeams();
+    const allMatches = await this.getAllMatches();
+
+    const homeTeam = allTeams.map((team) => LeaderBoardService.homeTeamInfo(team, allMatches));
+    const awayTeam = allTeams.map((team) => LeaderBoardService.awayTeamInfo(team, allMatches));
+
+    const classification = LeaderBoardService.allClass(homeTeam, awayTeam);
+
+    const sorted = LeaderBoardService.sortClassification(classification);
     return sorted;
   }
 }

@@ -13,4 +13,20 @@ export default class LeaderBoardController implements LeaderBoardControllerInter
 
     return res.status(HTTP_STATUS_OK).json(data);
   }
+
+  public async getAway(_req: Request, res: Response) {
+    const data = await this._leaderBoardService.getAway();
+
+    if (data.length === 0) return res.status(HTTP_SERVER_ERROR).json({ message: SERVER_ERROR });
+
+    return res.status(HTTP_STATUS_OK).json(data);
+  }
+
+  public async getAllClass(_req: Request, res: Response) {
+    const data = await this._leaderBoardService.getAllClass();
+
+    if (data.length === 0) return res.status(HTTP_SERVER_ERROR).json({ message: SERVER_ERROR });
+
+    return res.status(HTTP_STATUS_OK).json(data);
+  }
 }
