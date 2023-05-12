@@ -1,5 +1,7 @@
-import TeamProperties from '../utils/TeamProperties';
+import LeaderBoardInterface from './LeaderBoardInterface';
 
 export default interface LeaderBoardServiceInterface {
-  getHome(): Promise<TeamProperties[]>;
+  getHome(): Promise<LeaderBoardInterface[]>;
+  getAway(): Promise<LeaderBoardInterface[]>;
+  getAllClass(): Promise<LeaderBoardInterface[]>;
 }

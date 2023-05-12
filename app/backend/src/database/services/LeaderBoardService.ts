@@ -116,7 +116,7 @@ export default class LeaderBoardService implements LeaderBoardServiceInterface {
     return classification;
   }
 
-  public static sortClassification(homeTeam: LeaderBoardInterface[]) {
+  public static sortClassification(homeTeam: LeaderBoardInterface[]): LeaderBoardInterface[] {
     const sorted = homeTeam.sort((a, b) => {
       if (a.totalPoints !== b.totalPoints) {
         return b.totalPoints - a.totalPoints;
@@ -132,7 +132,7 @@ export default class LeaderBoardService implements LeaderBoardServiceInterface {
     return sorted;
   }
 
-  public async getHome() {
+  public async getHome(): Promise<LeaderBoardInterface[]> {
     const allTeams = await this.getAllTeams();
     const allMatches = await this.getAllMatches();
 
@@ -141,7 +141,7 @@ export default class LeaderBoardService implements LeaderBoardServiceInterface {
     return sorted;
   }
 
-  public async getAway() {
+  public async getAway(): Promise<LeaderBoardInterface[]> {
     const allTeams = await this.getAllTeams();
     const allMatches = await this.getAllMatches();
 
@@ -150,7 +150,7 @@ export default class LeaderBoardService implements LeaderBoardServiceInterface {
     return sorted;
   }
 
-  public async getAllClass() {
+  public async getAllClass(): Promise<LeaderBoardInterface[]> {
     const allTeams = await this.getAllTeams();
     const allMatches = await this.getAllMatches();
 

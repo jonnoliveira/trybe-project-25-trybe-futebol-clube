@@ -160,16 +160,6 @@ describe('Matches', () => {
     });
   })
 
-  // describe('MatchesController', () => {
-  //   it('Retorna um erro quando os Ids dos times são iguais', async () => {
-  //     // arrange
-  //     // act
-  //     const { status, body } = await chai.request(app).post('/matches').set({ 'Authorization': token }).send(sameIdsMatch);
-  //     // assert
-  //     expect(status).to.be.equal(HTTP_TEAM_ERROR);
-  //     expect(body).to.be.deep.equal({ message: TEAM_ERROR })
-  //   });
-  // })
 });
 afterEach(() => {
   sinon.restore();
