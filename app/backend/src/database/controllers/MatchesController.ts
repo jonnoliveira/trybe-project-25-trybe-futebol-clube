@@ -24,7 +24,7 @@ export default class MatchesController implements MatchesControllerInterface {
     const data = await this._macthesService.finishById(Number(id));
 
     if (data <= 0) {
-      return res.status(HTTP_SERVER_ERROR).json(SERVER_ERROR);
+      return res.status(HTTP_SERVER_ERROR).json({ message: SERVER_ERROR });
     }
 
     return res.status(HTTP_STATUS_OK).json({ message: 'Finished' });
@@ -37,7 +37,7 @@ export default class MatchesController implements MatchesControllerInterface {
     const data = await this._macthesService.updateById(Number(id), body);
 
     if (data <= 0) {
-      return res.status(HTTP_SERVER_ERROR).json(SERVER_ERROR);
+      return res.status(HTTP_SERVER_ERROR).json({ message: SERVER_ERROR });
     }
 
     return res.status(HTTP_STATUS_OK).json({ message: 'Match Updated' });
