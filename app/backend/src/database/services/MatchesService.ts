@@ -6,7 +6,7 @@ import TeamModel from '../models/TeamModel';
 import BodyCreateInterface from '../interfaces/BodyCreateInterface';
 
 export default class MatchesService implements MatchesServiceInterface {
-  protected model: ModelStatic<MatchModel> = MatchModel;
+  private model: ModelStatic<MatchModel> = MatchModel;
 
   public async getAll(): Promise<MatchInterface[]> {
     const message = await this.model.findAll({

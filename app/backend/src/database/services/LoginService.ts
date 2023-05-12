@@ -6,7 +6,7 @@ import validateJWT from '../JWT/validateJWT';
 import { FORMAT_INVALID, HTTP_FORMAT_INVALID } from '../utils/statusHTTP';
 
 export default class LoginService implements LoginServiceInterface {
-  protected model: ModelStatic<UserModel> = UserModel;
+  private model: ModelStatic<UserModel> = UserModel;
 
   public async login(mail: string, password: string) {
     const data = await this.model.findOne({ where: { email: mail } });

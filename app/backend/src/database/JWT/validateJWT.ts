@@ -1,6 +1,5 @@
 import jwt = require('jsonwebtoken');
 import UserInterface from '../interfaces/UserInterface';
-// import { TOKEN_NOT_FOUND } from '../utils/statusHTTP';
 
 const secretkey = process.env.JWT_SECRET || 'jwt_secret';
 
@@ -16,7 +15,6 @@ export default class validateJWT {
   };
 
   public static validateToken = (token: string) => {
-    // if (!token) return { message: TOKEN_NOT_FOUND };
     const isValid = jwt.verify(token, secretkey);
     return isValid;
   };
