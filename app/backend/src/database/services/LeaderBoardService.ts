@@ -6,6 +6,7 @@ import MatchResultInterface from '../interfaces/MatchesultsInterface';
 import TeamProperties from '../utils/TeamProperties';
 import TeamInterface from '../interfaces/TeamInterface';
 import MatchInterface from '../interfaces/MatchesInterface';
+import LeaderBoardInterface from '../interfaces/LeaderBoardInterface';
 
 export default class LeaderBoardService implements LeaderBoardServiceInterface {
   private modelTeam: ModelStatic<TeamModel> = TeamModel;
@@ -50,7 +51,6 @@ export default class LeaderBoardService implements LeaderBoardServiceInterface {
     homeMatches.forEach(({ homeTeamGoals, awayTeamGoals }) => {
       const { totalPoints, totalVictories, totalDraws, totalLosses } = LeaderBoardService
         .getMatchResults(homeTeamGoals, awayTeamGoals);
-      const { goalsFavor, goalsOwn, totalGames } = teamInfo;
 
       teamInfo.totalPoints += totalPoints;
       teamInfo.totalVictories += totalVictories;
@@ -60,11 +60,27 @@ export default class LeaderBoardService implements LeaderBoardServiceInterface {
       teamInfo.goalsFavor += homeTeamGoals;
       teamInfo.goalsOwn += awayTeamGoals;
 
+      const { goalsFavor, goalsOwn, totalGames, totalPoints: TP } = teamInfo; // desestruturar após o preenchimento das variáveis anteriores
       teamInfo.goalsBalance = goalsFavor - goalsOwn;
-      teamInfo.efficiency = parseInt(((totalPoints / (totalGames * 3)) * 100)
-        .toFixed(2), 10);
+      teamInfo.efficiency = +(((TP / (totalGames * 3))) * 100).toFixed(2); // + simplifica para number
     });
     return teamInfo;
+  }
+
+  public static sortClassification(data: LeaderBoardInterface[]) {
+    const sorted = data.sort((a, b) => {
+      if (a.totalPoints !== b.totalPoints) {
+        return b.totalPoints - a.totalPoints;
+      }
+      if (a.totalVictories !== b.totalVictories) {
+        return b.totalVictories - a.totalVictories;
+      }
+      if (a.goalsBalance !== b.goalsBalance) {
+        return b.goalsBalance - a.goalsBalance;
+      }
+      return b.goalsFavor - a.goalsFavor;
+    });
+    return sorted;
   }
 
   public async getHome() {
@@ -72,7 +88,7 @@ export default class LeaderBoardService implements LeaderBoardServiceInterface {
     const allMatches = await this.getAllMatches();
 
     const homeTeam = allTeams.map((team) => LeaderBoardService.homeTeamInfo(team, allMatches));
-
-    return homeTeam;
+    const sorted = LeaderBoardService.sortClassification(homeTeam);
+    return sorted;
   }
 }
