@@ -96,7 +96,7 @@ Veja mais abaixo!
 
 ## 100% :heavy_check_mark:
 
-![Project-tfc-grade]()
+![Project-tfc-grade](https://github.com/jonnoliveira/trybe-project-25-trybe-futebol-clube/blob/main/images/tfc-grade.png)
 
 </details> 
  
