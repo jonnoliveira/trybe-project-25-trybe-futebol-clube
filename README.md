@@ -2,8 +2,6 @@
 
 ## Esse projeto foi desenvolvido com intuido de conseguir aprovação final no módulo de `back-end` do curso da Trybe :green_heart:
 
-## Acesse o projeto clicando [aqui](https://jonnoliveira.github.io/trybe-project-25-trybe-futebol-clube/)! :computer:
-
 ### Stacks utilizadas no desenvolvimento:
 <div style="display: inline_block"><br>
   <img src="https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white" alt="Docker Shield" />
@@ -27,7 +25,7 @@
   
 </summary>
 
-O projeto TFC é um site informativo sobre partidas e classificações de futebol que é alimentado por uma APIRest dockerizada.
+O TFC é um projeto Full-Stack e consta de um site informativo sobre partidas e classificações de futebol que é alimentado por uma APIRest dockerizada.
 
 • Nesse projeto construí um Back-end encapsulado por Docker utilizando modelagem de dados através do Sequelize.
 
@@ -99,6 +97,23 @@ Veja mais abaixo!
 ## 100% :heavy_check_mark:
 
 ![Project-tfc-grade](https://github.com/jonnoliveira/trybe-project-25-trybe-futebol-clube/blob/main/images/tfc-grade.png)
+
+</details> 
+ 
+# 
+
+<details>
+ 
+<summary>
+
+## 4- Preview
+ 
+</summary>
+
+![Project-tfc-preview-1](https://github.com/jonnoliveira/trybe-project-25-trybe-futebol-clube/blob/main/images/tfc-preview-1.png)
+![Project-tfc-preview-2](https://github.com/jonnoliveira/trybe-project-25-trybe-futebol-clube/blob/main/images/tfc-preview-2.png)
+![Project-tfc-preview-3](https://github.com/jonnoliveira/trybe-project-25-trybe-futebol-clube/blob/main/images/tfc-preview-3.png)
+![Project-tfc-preview-4](https://github.com/jonnoliveira/trybe-project-25-trybe-futebol-clube/blob/main/images/tfc-preview-4.png)
 
 </details> 
  
