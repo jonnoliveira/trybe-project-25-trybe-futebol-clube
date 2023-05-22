@@ -1,6 +1,8 @@
 # PROJETO 25 - TRYBER FUTEBOL CLUBE :computer:
 
-## Esse projeto pertence ao módulo de `back-end` da [Trybe](https://www.betrybe.com/) :green_heart:
+## Esse projeto foi desenvolvido com intuido de conseguir aprovação final no módulo de `back-end` do curso da Trybe :green_heart:
+
+## Acesse o projeto clicando [aqui](https://jonnoliveira.github.io/trybe-project-25-trybe-futebol-clube/)! :computer:
 
 ### Stacks utilizadas no desenvolvimento:
 <div style="display: inline_block"><br>
